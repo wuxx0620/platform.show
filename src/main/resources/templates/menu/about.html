@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www/springframework.org/schema/mvc">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+        <title>铭孜产品展示平台</title>
+        <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.css}"/>
+        <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrapValidator.css}"/>
+        <link rel="stylesheet" type="text/css" th:href="@{/css/menu/about.css}"/>
+        <script type=text/javascript th:src="@{/js/jquery-3.3.0.min.js}"></script>
+        <script src="https://cdn.bootcss.com/jquery-cookie/1.4.1/jquery.cookie.js"></script>
+        <script type="text/javascript" th:src="@{/js/bootstrap.js}"></script>
+        <script type="text/javascript" th:src="@{/js/bootstrapValidator.js}"></script>
+        <script type="text/javascript" th:src="@{/js/md5.js}"></script>
+        <!--<script type="text/javascript" th:src="@{/js/layer.js}"></script>-->
+        <!-- HTML5 Shiv 和 Respond.js 用于让 IE8 支持 HTML5元素和媒体查询 -->
+        <!-- 注意： 如果通过 file://  引入 Respond.js 文件，则该文件无法起效果 -->
+        <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+        <![endif]-->
+    </head>
+    <body>
+        <span style="font-size:14px">
+            <p id="back-to-top">
+                <a href="#top">
+                    <span>
+                    </span>
+                    返回顶部
+                </a>
+            </p>
+        </span>
+        <nav class="navbar navbar-inverse" role="navigation">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse"
+                            data-target="#header-navbar-collapse">
+                        <span class="sr-only">切换导航</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand">
+                        <img src="/imags/logo.png"/>
+                    </a>
+                </div>
+                <div class="collapse navbar-collapse" id="header-navbar-collapse">
+                    <ul class="nav navbar-nav">
+                        <li>
+                            <a href="/index">首页</a>
+                        </li>
+                        <li>
+                            <a href="/product">产品展示</a>
+                        </li>
+                        <!--<li role="presentation" class="disabled"><a href="/iclassroom" onclick="">我的课堂</a></li>-->
+                        <li class="dropdown">
+                            <a href="#" data-toggle="dropdown">我的课堂
+                                <span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a href="/course/courseNumChart">课程数据</a>
+                                </li>
+                                <li>
+                                    <a href="/courseList/findAllCourse">课表题库</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="/channel">渠道招募</a>
+                        </li>
+                        <li>
+                            <a href="/about">关于我们</a>
+                        </li>
+                        <li id="sign-in-button" style="display: none">
+                            <button type="button" class="btn btn-custom"
+                                    data-toggle="modal" data-target=".bs-login-modal">
+                                <span>登录</span>
+                            </button>
+                        </li>
+                        <li id="username-button" style="display: none">
+                            <button type="button" class="sign-up-button">
+                                <a th:text="${session.username}"></a>
+                            </button>
+                        </li>
+
+                        <li id="logout" style="display: none">
+                            <button type="button" class="sign-up-button" id="sign-up-button">
+                                <a th:href="@{/logout}">注销</a>
+                            </button>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <div class="modal fade bs-login-modal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+            <div class="modal-dialog modal-sm" role="document">
+                <div class="modal-content">
+                    <!--登录框头部-->
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                            ×
+                        </button>
+                        <h4 class="modal-title" id="myModalLabel">
+                            欢迎登陆
+                        </h4>
+                    </div>
+                    <!--登录框中间部分(form表单)-->
+                    <div class="modal-body">
+                        <form class="form-horizontal" role="form" id="loginForm">
+                            <!--用户框-->
+                            <div class="form-group">
+                                <label for="username" class="col-lg-2 control-label">用户名</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" id="username" name="username"
+                                           placeholder="请输入用户名">
+                                </div>
+                            </div>
+                            <!--密码框-->
+                            <div class="form-group">
+                                <label for="password" class="col-lg-2 control-label">密码</label>
+                                <div class="col-sm-10">
+                                    <input type="password" class="form-control" id="password" name="password"
+                                           placeholder="请输入密码" onblur="">
+                                </div>
+                            </div>
+                            <!--<div class="form-group">-->
+                            <!--<div class="col-sm-offset-2 col-lg-10">-->
+                            <!--<div class="checkbox">-->
+                            <!--<label>-->
+                            <!--<input type="checkbox">-->
+                            <!--记住密码-->
+                            <!--</label>-->
+                            <!--</div>-->
+                            <!--</div>-->
+                            <!--</div>-->
+                            <div class="form-group">
+                                <div class="col-lg-offset-2 col-lg-10">
+                                    <button type="button" class="btn Popup" onclick="checkLogin()">登录</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container-fluid">
+            <div class="session-1">
+                <div class="row row1">
+                    <div class="col-md-10 col-md-offset-2 about-row1">
+                        <h1>About Us ..</h1>
+                        <p>关于铭孜</p>
+                        <img src="../imags/prointro-decoration.png" class="img-responsive">
+                    </div>
+                </div>
+            </div>
+            <div class="session-2">
+                <div class="session-2-title">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <img src="../imags/left_arr_bg.png">
+                            <span>关于铭孜</span>
+                            <img src="../imags/right_arr_bg.png">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <img src="../imags/introduce-decoration-icon.png">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="bc-content4 center-block">
+                            <p>
+                                作为VR-和AR内容制作商，铭孜始终专注于K12教育领域，
+                                一圈科目多维度优质课程内容资源位核心，运用领先学习理念将传统知识内容具象化，
+                                将虚拟现实、增强现实人工智能、
+                                智慧云平台和可视化数据中心相结合，打造独家智慧课堂，
+                                为教育和学习者提供高仿真、可交互、沉浸式教学辅助工具。
+                            </p>
+                            <h2>铭孜愿景</h2>
+                            <p>成为优质教育内容制作商，为全球学习者和教育者提供科技、高效、公平的教育资源。</p>
+                            <h2>铭孜产品定位</h2>
+                            <p>打造智慧教辅工具，定义全新学习方式</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="session-3">
+                <div class="session-3-title">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <img src="../imags/left_arr_bg.png">
+                            <span>汇聚知名院校背景技术研发团队和管理团队</span>
+                            <img src="../imags/right_arr_bg.png">
+                        </div>
+                    </div>
+                </div>
+                <div class="row about2">
+                    <div class="col-md-12 ">
+                        <img src="../imags/about2.png" class="img-responsive center-block">
+                    </div>
+                </div>
+            </div>
+            <div class="session-4">
+                <div class="row">
+                    <div class="col-md-12 about3">
+                        <img src="../imags/about3.png" class="img-responsive">
+                    </div>
+                </div>
+            </div>
+            <div class="session-5">
+                <div class="session-5-title">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <img src="../imags/left_arr_bg.png">
+                            <span>典型客户和合作伙伴</span>
+                            <img src="../imags/right_arr_bg.png">
+                        </div>
+                    </div>
+                </div>
+                <div class="row about1">
+                    <div class="col-md-12">
+                        <img src="/imags/about1.png" class="img-responsive center-block">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="foot text-center">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-3">
+                        <img src="../imags/2x.png" class="foot-wx">
+                    </div>
+                    <div class="col-md-3">
+                        <h2>服务时间</h2>
+                        <p>工作日 10: 00-18: 00</p>
+                        <p>地址：北京市海淀区知春路甲48号盈都大厦A座20层</p>
+                    </div>
+                    <div class="col-md-6">
+                        <h2>联系我们</h2>
+                        <p>服务热线：4006-010-568</p>
+                        <p>合作邮箱：bd.education@sureal.net</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script th:inline="javascript">
+            var code = [[${code}]];
+            if (code == 200) {
+                $('#username-button,#logout').show();
+            } else {
+                $('#sign-in-button').show();
+            }
+        </script>
+        <script type="text/javascript" th:src="@{/js/loginRule/loginRule.js}"></script>
+        <script type="text/javascript" th:src="@{/js/back-to-top/back-to-top.js}"></script>
+    </body>
+</html>

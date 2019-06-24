@@ -1,0 +1,22 @@
+server:
+  port: 9003
+spring:
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/mzplatform?useUnicode=true&amp;characterEncoding=UTF8&serverTimezone=Asia/Shanghai
+    username: root
+    password: root
+  thymeleaf:
+    #    mode: LEGACYHTML5
+    cache: false
+  redis:
+    database: 0
+    host: 127.0.0.1
+    port: 6379
+mybatis:
+  type-aliases-package: com.sureal.pojo
+  mapper-locations: classpath:/mybatis/mapper/*.xml
+  config-location: classpath:/mybatis/mybatis-config.xml
+logging:
+  path: /Users/jackie/workspace/rome/
+  file: platform-show.log

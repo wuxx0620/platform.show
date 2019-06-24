@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sureal.dao.JoinUsMapper">
+
+    <resultMap type="com.sureal.pojo.JoinUs" id="JoinUs">
+        <id column="id" property="id" javaType="java.lang.Integer" jdbcType="VARCHAR"/>
+        <id column="courseName" property="courseName" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <id column="company" property="company" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <id column="name" property="name" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <id column="phone" property="phone" javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <id column="email" property="email" javaType="java.lang.String" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <select id="add" resultMap="JoinUs">
+          insert into sur_join_us (courseName,company,name,phone,email) values (#{courseName},#{company},#{name},#{phone},#{email})
+    </select>
+
+</mapper>

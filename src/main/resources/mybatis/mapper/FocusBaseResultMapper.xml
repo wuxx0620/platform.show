@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sureal.dao.FocusBaseResultMapper">
+    <select id="findFocusByUser" resultType="com.sureal.pojo.FocusBaseResult">
+             select sum(f.focus) as focus, sum(correct) as correct, subject, f.schoolname as schoolName
+             from (select avg(d.focus) as focus, avg(d.correct_rate) as correct, e.subject, a.schoolname
+                  from sur_user a,
+                       sur_pad b,
+                       sur_ref_pad_pico c,
+                       sur_vr_course_used d,
+                       sur_course e
+                  where a.is_delete = 0
+                   and b.is_delete = 0
+                    and c.is_delete = 0
+                    and d.is_delete = 0
+                    and e.is_delete = 0
+                    and a.id = b.user_id_fk
+                    and b.pad_device_id = c.pad_id
+                    and c.pico_id = d.pico_device_id
+                    and d.course_id = e.id
+                    and a.username = #{username}
+                    and str_to_date(d.create_time, '%Y-%m-%d') between #{bTime} and #{eTime}
+                  group by e.subject, a.schoolname) f group by f.subject
+    </select>
+    <select id="findFocusMax" resultType="com.sureal.pojo.FocusBaseResult">
+      select g.schoolname,
+                   g.subject,
+                   cast(max(g.focus) as decimal(10, 1)) as focusMax,
+                   cast(max(correct) as decimal(10, 1))as  correctMax
+            from (select a.schoolname, avg(d.focus) as focus, avg(d.correct_rate)as correct, e.subject
+                  from sur_user a,
+                       sur_pad b,
+                       sur_ref_pad_pico c,
+                       sur_vr_course_used d,
+                       sur_course e
+                  where a.is_delete = 0
+                    and b.is_delete = 0
+                    and c.is_delete = 0
+                    and d.is_delete = 0
+                    and e.is_delete = 0
+                    and a.id = b.user_id_fk
+                    and b.pad_device_id = c.pad_id
+                    and c.pico_id = d.pico_device_id
+                    and d.course_id = e.id
+                    and str_to_date(d.create_time, '%Y-%m-%d') between #{bTime} and #{eTime}
+                  group by a.schoolname, e.subject
+                  order by focus desc, correct desc) g
+            group by g.subject
+    </select>
+    <select id="findFocusAvg" resultType="com.sureal.pojo.FocusBaseResult">
+        select sum(f.focus) as focusAvg, sum(correct) as correctAvg, subject
+            from (select avg(d.focus) as focus, avg(d.correct_rate) as correct, e.subject, a.schoolname
+                  from sur_user a,
+                       sur_pad b,
+                       sur_ref_pad_pico c,
+                       sur_vr_course_used d,
+                       sur_course e
+                  where a.is_delete = 0
+                    and b.is_delete = 0
+                    and c.is_delete = 0
+                    and d.is_delete = 0
+                    and e.is_delete = 0
+                    and a.id = b.user_id_fk
+                    and b.pad_device_id = c.pad_id
+                    and c.pico_id = d.pico_device_id
+                    and d.course_id = e.id
+                    and str_to_date(d.create_time, '%Y-%m-%d') between #{bTime} and #{eTime}
+                  group by e.subject, a.schoolname) f
+            group by f.subject
+    </select>
+    <select id="findFocusBySujectAndGrade" resultType="com.sureal.pojo.FocusBaseResult">
+        select sum(f.focus) as focus, sum(correct) as correct, subject, f.schoolname as schoolName
+        from (select avg(d.focus) as focus, avg(d.correct_rate) as correct, e.subject, a.schoolname
+              from sur_user a,
+                   sur_pad b,
+                   sur_ref_pad_pico c,
+                  sur_vr_course_used d,
+                   sur_course e
+              where a.is_delete = 0
+                and b.is_delete = 0
+                and c.is_delete = 0
+                and d.is_delete = 0
+                and e.is_delete = 0
+                and a.id = b.user_id_fk
+                and b.pad_device_id = c.pad_id
+                and c.pico_id = d.pico_device_id
+               and d.course_id = e.id
+               and a.username = #{username}
+        and e.grade IN
+        <foreach collection='grades' item='grade' open='(' separator=',' close=')'>
+            #{grade}
+            </foreach>
+        and e.subject in
+        <foreach collection='subjects' item='subject' open='(' separator=',' close=')'>
+            #{subject}
+            </foreach>
+        and str_to_date(d.create_time, '%Y-%m-%d') between #{bTime} and #{eTime}
+        group by e.subject, a.schoolname) f group by f.subject
+    </select>
+</mapper>

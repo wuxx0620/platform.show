@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sureal.dao.CourseBaseResultMapper">
+    <!--查询学校总数-->
+    <select id="findAllSchoolNum" resultType="java.lang.Long">
+        SELECT COUNT(suu.schoolname) FROM (SELECT schoolname FROM sur_user su where su.is_delete = 0 GROUP BY schoolname) suu
+    </select>
+
+    <!--查询所有科目-->
+    <select id="findAllSubject" resultType="com.sureal.pojo.CourseBaseResult" parameterType="java.util.List">
+        select sc.subject from sur_course sc group by sc.subject
+    </select>
+
+    <!--根据用户选择的科目查询课程数量-->
+    <select id="findCourseNumByUser" resultType="com.sureal.pojo.CourseBaseResult">
+      select a.schoolname, d.subject, count(d.subject) as courseNum
+            from sur_user a,
+                 sur_vr_authority b,
+                 sur_version c,
+                 sur_course d,
+                 sur_ref_user_authority e,
+                 sur_ref_authority_version f,
+                 sur_ref_version_course g
+            where a.is_delete = 0
+              and b.is_delete = 0
+              and c.is_delete = 0
+              and d.is_delete = 0
+              and e.is_delete = 0
+              and f.is_delete = 0
+              and g.is_delete = 0
+              and a.id = e.user_id
+              and e.authority_id = b.id
+              and b.id = f.authority_id
+              and f.version_id = c.id
+              and c.id = g.version_id
+              and g.course_id = d.id
+               and str_to_date(f.modify_time, '%Y-%m-%d') between #{bTime} and #{eTime}
+              and a.username = #{username}
+            group by a.schoolname, d.subject
+    </select>
+
+    <!--科目对应的课程数量最大值-->
+    <select id="findCourseMax" resultType="com.sureal.pojo.CourseBaseResult">
+        select h.subject, h.schoolname as schoolName, max(h.num)as courseNumMax
+            from (select a.schoolname, d.subject, count(d.subject) as num
+                  from sur_user a,
+                       sur_vr_authority b,
+                       sur_version c,
+                       sur_course d,
+                       sur_ref_user_authority e,
+                       sur_ref_authority_version f,
+                       sur_ref_version_course g
+                  where a.is_delete = 0
+                   and b.is_delete = 0
+                    and c.is_delete = 0
+                    and d.is_delete = 0
+                    and e.is_delete = 0
+                    and f.is_delete = 0
+                    and g.is_delete = 0
+                    and a.id = e.user_id
+                    and e.authority_id = b.id
+                    and b.id = f.authority_id
+                    and f.version_id = c.id
+                    and c.id = g.version_id
+                    and g.course_id = d.id
+                    and str_to_date(f.modify_time, '%Y-%m-%d') between #{bTime} and #{eTime}
+                  group by a.schoolname, d.subject
+                  order by num desc) h
+            group by h.subject
+    </select>
+    <!--科目对应的课程数量平均值-->
+    <select id="findCourseAvg" resultType="com.sureal.pojo.CourseBaseResult">
+        select count(d.subject) as courseNumAvg, d.subject
+            from sur_user a,
+                 sur_vr_authority b,
+                 sur_version c,
+                 sur_course d,
+                 sur_ref_user_authority e,
+                 sur_ref_authority_version f,
+                 sur_ref_version_course g
+            where a.is_delete = 0
+              and b.is_delete = 0
+              and c.is_delete = 0
+              and d.is_delete = 0
+              and e.is_delete = 0
+              and f.is_delete = 0
+              and g.is_delete = 0
+              and a.id = e.user_id
+              and e.authority_id = b.id
+              and b.id = f.authority_id
+              and f.version_id = c.id
+              and c.id = g.version_id
+              and g.course_id = d.id
+              and str_to_date(f.modify_time, '%Y-%m-%d') between #{bTime} and #{eTime}
+            group by d.subject
+    </select>
+    <select id="findSchoolAndSubject" resultType="com.sureal.pojo.CourseBaseResult">
+        select count(sc.subject) as courseNum,su.schoolname,sc.subject
+            from sur_user su,
+                 sur_course sc,
+                 sur_user_course suc
+            where su.id = suc.user_id
+              and sc.id = suc.course_id
+            group by sc.subject
+    </select>
+    <select id="findCourseNumBySubjcetAndGrade" resultType="com.sureal.pojo.CourseBaseResult">
+        select
+        a.schoolname as schoolName, d.subject, count(d.subject) as courseNum
+        from sur_user a,
+             sur_vr_authority b,
+             sur_version c,
+             sur_course d,
+             sur_ref_user_authority e,
+             sur_ref_authority_version f,
+             sur_ref_version_course g
+        where a.is_delete = 0
+          and b.is_delete = 0
+          and c.is_delete = 0
+          and d.is_delete = 0
+          and e.is_delete = 0
+          and f.is_delete = 0
+          and g.is_delete = 0
+          and a.id = e.user_id
+          and e.authority_id = b.id
+          and b.id = f.authority_id
+          and f.version_id = c.id
+          and c.id = g.version_id
+          and g.course_id = d.id
+          and a.username=#{username}
+        and d.grade IN
+        <foreach collection='grades' item='grade' open='(' separator=',' close=')'>
+        #{grade}
+        </foreach>
+        and d.subject in
+        <foreach collection='subjects' item='subject' open='(' separator=',' close=')'>
+        #{subject}
+        </foreach>
+        and f.modify_time between #{bTime}  and  #{eTime}
+        group by a.schoolname, d.subject
+    </select>
+</mapper>

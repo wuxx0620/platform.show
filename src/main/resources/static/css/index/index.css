@@ -1,0 +1,388 @@
+p#back-to-top {
+    position: fixed;
+    display: none;
+    bottom: 100px;
+    right: 80px;
+    z-index: 9999;
+}
+
+p#back-to-top > a {
+    text-align: center;
+    text-decoration: none;
+    color: #d1d1d1;
+    display: block;
+    width: 64px;
+    /*使用CSS3中的transition属性给跳转链接中的文字添加渐变效果*/
+    -moz-transition: color 1s;
+    -webkit-transition: color 1s;
+    -o-transition: color 1s;
+}
+
+p#back-to-top > a:hover {
+    color: #979797;
+}
+
+p#back-to-top > a > span {
+    background: transparent url(../../imags/Gnome-Go-Top-48.png) no-repeat;
+    border-radius: 6px;
+    display: block;
+    height: 64px;
+    width: 56px;
+    margin-bottom: 5px;
+    /*使用CSS3中的transition属性给<span>标签背景颜色添加渐变效果*/
+    -moz-transition: background 1s;
+    -webkit-transition: background 1s;
+    -o-transition: background 1s;
+}
+
+#back-to-top > a:hover span {
+    background: transparent url(../../imags/Gnome-Go-Top-48.png) no-repeat;
+}
+
+.navbar {
+    min-height: 170px;
+}
+
+.navbar-brand > img {
+    max-width: 208px;
+}
+
+.carousel {
+    top: -22px;
+}
+
+.session-1 {
+    margin-top: 200px;
+}
+
+.custom-button1 {
+    height: 65px;
+    border: 1px solid red;
+    border-radius: 41px;
+    width: 360px;
+    position: relative;
+    margin-bottom: 40px;
+    text-align: center;
+    font: 24px/60px "PingFangSC";
+    color: red;
+}
+
+.custom-button1:hover {
+    background-color: red;
+    color: white;
+}
+
+.custom-button2 {
+    height: 65px;
+    border: 1px solid #F7A621;
+    border-radius: 41px;
+    width: 360px;
+    color: #F7A621;
+    position: relative;
+    margin-bottom: 40px;
+    text-align: center;
+    font: 24px/60px "PingFangSC";
+}
+
+.custom-button2:hover {
+    background-color: #F7A621;
+    color: white;
+}
+
+.custom-button3 {
+    height: 65px;
+    border: 1px solid #558DF7;
+    border-radius: 41px;
+    width: 360px;
+    color: #558DF7;
+    position: relative;
+    margin-bottom: 40px;
+    text-align: center;
+    margin-top: 100px;
+    font: 24px/60px "PingFangSC";
+}
+
+.custom-button3:hover {
+    background-color: #558DF7;
+    color: white;
+}
+
+.model {
+    margin-bottom: 40px;
+}
+
+.custom-button4 {
+    height: 65px;
+    border: 1px solid #148D2E;
+    border-radius: 41px;
+    width: 360px;
+    color: #148D2E;
+    position: relative;
+    margin-bottom: 40px;
+    text-align: center;
+    font: 24px/60px "PingFangSC";
+}
+
+.custom-button4:hover {
+    background-color: #148D2E;
+    color: white;
+}
+
+.custom-button5 {
+    height: 65px;
+    border: 1px solid #5430AC;
+    border-radius: 41px;
+    width: 360px;
+    color: #5430AC;
+    position: relative;
+    margin-bottom: 40px;
+    text-align: center;
+    font: 24px/60px "PingFangSC";
+}
+
+.custom-button5:hover {
+    background-color: #5430AC;
+    color: white;
+}
+
+.session-2 {
+    margin-top: 200px;
+}
+
+.session-2 .col-md-12 {
+    padding: 0 0;
+}
+
+.session-3 {
+    width: 75%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.session-4 .col-md-12 {
+    padding: 0 0;
+}
+
+.session-5 {
+    width: 80%;
+    margin-right: auto;
+    margin-left: auto;
+    margin-bottom: 200px;
+}
+
+.case-model1 {
+    text-align: center;
+    font-size: 50px;
+    margin: 240px 0px 150px;
+}
+
+.custom-bc {
+    border-radius: 15px;
+    height: 450px;
+    width: 300px;
+    background-color: white;
+    margin-bottom: 180px;
+    text-align: center;
+    box-shadow: 0px 2px 15px rgba(0, 0, 0, .2);
+}
+
+.custom-bc > h2 {
+    margin-top: 35px;
+}
+
+.custom-bc > img {
+    margin-top: 54px;
+}
+
+.custom-bc > span {
+    position: relative;
+    top: 30px;
+    font-size: 18px;
+    color: #B6B6B6
+}
+
+.custom-bc > img:hover {
+    -webkit-transform: translateY(-20px);
+}
+
+.session-5 .col-md-3 .part-img1 > img {
+    margin-top: 10px;
+    animation: rotate 3s linear infinite;
+}
+
+.session-5 .col-md-3 .part-img > img {
+    animation: rotate 3s linear infinite;
+}
+
+@-webkit-keyframes rotate {
+    from {
+        -webkit-transform: rotate(0deg)
+    }
+    to {
+        -webkit-transform: rotate(360deg)
+    }
+}
+
+.session-5 .col-md-3 > span {
+    position: relative;
+    top: -88px;
+    font-size: 29px;
+    color: white;
+}
+
+.session-5 .col-md-3 > p {
+    text-align: left;
+    font-size: 19px;
+    color: #B6B6B6;
+    width: 50%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 40px;
+}
+
+.foot {
+    background-color: black;
+    padding: 2em 0;
+}
+
+.foot .col-md-3 > h2 {
+    color: #FFFFFF;
+    font-size: 2.2em;
+}
+
+.foot .col-md-3 > p {
+    color: #FFFFFF;
+    margin-top: 13px;
+    font-size: 1.3em;
+}
+
+.foot .col-md-6 > h2 {
+    color: #FFFFFF;
+    font-size: 2.2em;
+}
+
+.foot .col-md-6 > p {
+    color: #FFFFFF;
+    margin-top: 13px;
+    font-size: 1.3em;
+}
+
+.foot .col-md-3 > img {
+    height: 150px;
+}
+
+@media (min-width: 768px) {
+    .navbar-brand > img {
+        max-width: 140px;
+        margin-top: 35px;
+    }
+
+    .navbar-nav {
+        margin: 47px 0px;
+    }
+
+    .navbar-nav > li > a {
+        font-size: 13px;
+    }
+
+    .sign-up-button {
+        border-radius: 24px;
+        width: 70px;
+        height: 30px;
+        border: 1px solid white;
+        background-color: #222;
+        font-size: 14px;
+        text-align: center;
+        color: #3dc1b6;
+        margin-top: 10px;
+        margin-left: 7px;
+    }
+
+    .sign-up-button > a {
+        position: relative;
+        top: 1px;
+        text-decoration: none;
+        color: #3dc1b6;
+    }
+
+    .sign-up-button:hover {
+        border-color: #3dc1b6;
+    }
+}
+
+@media (min-width: 992px) {
+    .navbar-brand > img {
+        max-width: 210px;
+        margin-top: 35px;
+    }
+
+    .navbar-nav {
+        margin: 49px 0px;
+    }
+
+    .navbar-nav > li > a {
+        font-size: 18px;
+    }
+
+    .sign-up-button {
+        border-radius: 24px;
+        width: 88px;
+        height: 34px;
+        border: 1px solid white;
+        background-color: #222;
+        font-size: 18px;
+        text-align: center;
+        color: #3dc1b6;
+        margin-top: 8px;
+        margin-right: 12px;
+    }
+
+    .sign-up-button > a {
+        position: relative;
+        top: -1px;
+        text-decoration: none;
+        color: #3dc1b6;
+    }
+
+    .sign-up-button:hover {
+        border-color: #3dc1b6;
+    }
+}
+
+@media (min-width: 1200px) {
+    .navbar-brand > img {
+        max-width: 245px;
+        margin-top: 35px;
+    }
+
+    .navbar-nav {
+        margin: 53px 3px;
+    }
+
+    .navbar-nav > li > a {
+        font-size: 22px;
+    }
+
+    .sign-up-button {
+        border-radius: 24px;
+        width: 120px;
+        height: 45px;
+        border: 1px solid white;
+        background-color: #222;
+        font-size: 22px;
+        text-align: center;
+        color: #3dc1b6;
+        margin-top: 3px;
+    }
+
+    .sign-up-button > a {
+        position: relative;
+        top: -1px;
+        text-decoration: none;
+        color: #3dc1b6;
+    }
+
+    .sign-up-button:hover {
+        border-color: #3dc1b6;
+    }
+}
